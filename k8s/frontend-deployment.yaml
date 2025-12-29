@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: car-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: car-frontend
+  template:
+    metadata:
+      labels:
+        app: car-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: car-frontend:local
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BACKEND_URL
+              value: "http://car-backend:8000"
+          ports:
+            - containerPort: 8501
